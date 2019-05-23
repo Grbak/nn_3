@@ -11,9 +11,7 @@ def Function(net):
 def Derivative(net):
 	return 0.5*(1 - Function(net)**2)
 
-
 class N:
-
 	def __init__(self, numb_w):
 		self.w = np.array([0.5]*numb_w)
 		self.net = 0
@@ -33,14 +31,11 @@ class N:
 		self.sygma = Derivative(self.net)*sygma
 		return [self.sygma*wi for wi in self.w[1:]]
 
-
-
 class NN:
 	def __init__(self, x, J, t):
 		self.x = x
 		self.J = J
 		self.t = t
-
 		self.age = 0
 
 		self.hide_level = [N(len(x)) for index in range(J)]
@@ -71,18 +66,14 @@ class NN:
 		output_mistake = [output_neuron.Get_mistake(sygma[i]) for i, output_neuron in enumerate(self.output_level)]
 		output_mistake = [sum(composition[index] for composition in output_mistake) for index in range(self.J)]
 
-
 		for hide_neuron, j in itertools.product(self.hide_level, range(len(output_mistake))):
 			hide_neuron.Get_mistake(output_mistake[j])
-
 
 		for hide_neuron in self.hide_level:
 			hide_neuron.Correct_weight(self.x)
 
-
 		for output_neuron in self.output_level:
 			output_neuron.Correct_weight(hide_out)
-
 
 		self.age += 1
 
@@ -91,7 +82,6 @@ class NN:
 	def Learning(self):
  		while self.Age() > eps:
  			pass
-
 
 n1 = NN([1, 2, 2], 1 , [0.3, 0.1])
 n1.Learning()
