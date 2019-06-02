@@ -3,7 +3,7 @@ import math
 import itertools
 
 nu = 0.5
-eps = 0.0001
+eps = 0.001
 
 def Function(net):
 	return (1 - np.e**(-net))/(1 + np.e**(-net))
