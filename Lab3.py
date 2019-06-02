@@ -2,7 +2,7 @@ import numpy as np
 import math
 import itertools
 
-nu = 0.5
+nu = 1
 eps = 0.001
 
 def Function(net):
@@ -48,12 +48,11 @@ class NN:
 
 		output_out = [output_neuron.Get_out(hide_out) for output_neuron  in self.output_level]
 
+
 		sygma = [self.t[index] - output_out[index] for index in range(len(self.t))]
 
 
 		squared_error =  sum(index**2 for index in sygma)**0.5
-
-		print('Суммарная среднеквадратичная ошибка:', round(squared_error, 5))
 
 		print("Веса нейронов скрытого слоя:")
 		for neuron in self.hide_level:
@@ -62,6 +61,12 @@ class NN:
 		print("Веса нейронов выходного слоя:")
 		for neuron in self.output_level:
 			print(np.around(neuron.w, 3))
+
+		print("Выходы нейронов выходного слоя:")
+		print(np.around(output_out, 3))
+
+		print('Суммарная среднеквадратичная ошибка:', round(squared_error, 4))
+
 
 		output_mistake = [output_neuron.Get_mistake(sygma[i]) for i, output_neuron in enumerate(self.output_level)]
 		output_mistake = [sum(composition[index] for composition in output_mistake) for index in range(self.J)]
