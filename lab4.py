@@ -81,19 +81,19 @@ def neuron_vector(c, u): #Булевый вектор, который высчи
     for set in x:
         phi = get_phi(c, set)
         net = np.dot(phi, u)
-        y = 1 if net >= 0 else 0
+        y = heaviside_step_function(net)
         out += str(y)
     return out
 
 def real_vector(): #Вектор булевой функции
-    real = ''
+    real_vector = ''
     for set in x:
-        real += str(boolean_function(set))
-    return real
+        real_vector += str(boolean_function(set))
+    return real_vector
 
 def get_phi(c, x): #Значения в RBF-нейронах
-    difference = [[np.array(x) - np.array(ci)] for ci in c]
-    return [1] + [math.exp(-np.sum(np.power(diff, 2))) for diff in difference]
+    difference = [[np.array(x) - np.array(index)] for index in c]
+    return [1] + [math.exp(-np.sum(np.power(index, 2))) for index in difference]
 
 
 def boolean_function(x): #Функция, высчитывающая значения булевой функции
